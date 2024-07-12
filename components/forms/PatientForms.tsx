@@ -6,6 +6,8 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomFormField from "../customFormField"
+import SubmitButton from "../SubmitButton"
+import { useState } from "react"
 
 export enum FormFieldTypes {
   INPUT = 'input',
@@ -24,6 +26,7 @@ const formSchema = z.object({
 })
 
 const PatientForms = () => {
+  const [isLoading,setIsLoading] = useState();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,6 +46,7 @@ const PatientForms = () => {
           <p className="text-dark-700">Your health is our priority. Schedule your consultation with our expert doctors today!</p>
         </section>
 
+        
         <CustomFormField
           control={form.control}
           fieldType={FormFieldTypes.INPUT}
@@ -52,7 +56,26 @@ const PatientForms = () => {
           iconSrc="/assets/icons/user.svg"
           iconAlt="user icon  "
         />
-        <Button type="submit">Submit</Button>
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldTypes.INPUT}
+          name="email"
+          label="E-mail"
+          placeholder="user@gmail.com"
+          iconSrc="/assets/icons/email.svg"
+          iconAlt="email icon  "
+        />
+
+        <CustomFormField
+          control={form.control}
+          fieldType={FormFieldTypes.PHONE_INPUT}
+          name="phone"
+          label="Phone number"
+          placeholder="+91 9325232542"
+        />
+
+        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
       </form>
     </Form>
   )
