@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex h-screen max-h-screen">
+    <div className="h-screen max-h-screen">
         <section className="remove-scrollbar container my-auto">
             <div className="sub-container max-w-[496px]">
 
@@ -28,14 +28,6 @@ export default function Home() {
               </div>
             </div>
         </section>
-        <Image
-          src={'/assets/images/onboarding-img.png'}
-          height={10000}
-          width={10000}
-          alt="onboarding image"
-          className="max-w-[50%] side-img"
-        >
-        </Image>
     </div>
   )
     
