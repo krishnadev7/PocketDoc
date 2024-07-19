@@ -3,6 +3,7 @@ const {
   PROJECT_ID,
   API_KEY,
   DATABASE_ID,
+  PATIENT_COLLECTION_ID,
   NEXT_PUBLIC_STORAGE_ID: STORAGE_ID,
   NEXT_PUBLIC_ENDPOINT: ENDPOINT,
 } = process.env;
@@ -10,11 +11,13 @@ const {
 const sdk = require('node-appwrite')
 
 const client = new sdk.Client();
+console.log("endpoint",ENDPOINT);
+
 
 client
-    .setEndpoint(ENDPOINT)
-    .setProject(PROJECT_ID)
-    .setKey(API_KEY);
+    .setEndpoint(ENDPOINT!)
+    .setProject(PROJECT_ID!)
+    .setKey(API_KEY!);
 
 export const databases = new sdk.Databases(client);
 export const storage = new sdk.Storage(client);

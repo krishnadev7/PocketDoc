@@ -2,7 +2,7 @@ import Image from "next/image"
 import { Button } from "./ui/button"
 
 interface ButtonProps{
-  isLoading: true,
+  isLoading: boolean,
   className?: string,
   children: React.ReactNode
 }
