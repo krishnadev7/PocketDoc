@@ -45,9 +45,11 @@ const config = {
           600: "#76828D",
           700: "#ABB8C4",
         },
+        pocketDoc: "#08c0a9",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        poppins: ["var(--font-poppins)", 'sans-serif'],
       },
       backgroundImage: {
         appointments: "url('/assets/images/appointments-bg.png')",

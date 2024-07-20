@@ -8,16 +8,16 @@ export default function Home() {
         <section className="remove-scrollbar container my-auto">
             <div className="sub-container max-w-[496px]">
 
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <Image
-                  src={"/assets/images/logo1.jpeg"}
+                  src={"/assets/images/pocketdoc-logo.png"}
                   height={1000}
                   width={1000}
                   alt="logo"
                   className="mb-12 h-16 w-fit"
                 />
                 <p>PocketDoc</p>
-              </div>
+              </div> */}
 
               <PatientForms/>
 
