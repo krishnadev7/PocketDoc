@@ -4,7 +4,7 @@ export const Navbar = () => {
     return (
 
 
-        <nav className="border-b-2 border-transparent">
+        <nav className="border-b-2 border-transparent bg-dark-400">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
 
                 <div className="flex items-center rtl:space-x-reverse">
@@ -14,7 +14,7 @@ export const Navbar = () => {
                         width={65}
                         alt="logo"
                     />
-                    <span className="self-center text-3xl font-semibold whitespace-nowrap text-pocketDoc font-poppins">pocketDoc</span>
+                    <span className="self-center text-3xl font-semibold whitespace-nowrap text-pocketDoc font-poppins">PocketDoc</span>
                 </div>
 
                 <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">

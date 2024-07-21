@@ -2,8 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { boolean, z } from "zod"
-import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import CustomFormField from "../customFormField"
 import SubmitButton from "../SubmitButton"
@@ -11,6 +9,7 @@ import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
 import { createUser } from "@/lib/actions/patient.action"
 import { useRouter } from "next/navigation"
+import { z } from "zod"
 
 export enum FormFieldTypes {
   INPUT = 'input',
@@ -47,7 +46,6 @@ const PatientForms = () => {
         email: values.email,
         phone: values.phone
       }
-      console.log(user);
       
 
       const newUser = await createUser(user);
