@@ -130,6 +130,44 @@ const RegisterForm = ({ user }: { user: User }) => {
                     />
                 </div>
 
+                <div className="flex flex-col gap-6 xl:flex-row">
+                    <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.INPUT}
+                        name="address"
+                        label="Address"
+                        placeholder="Amit Singh
+                                     42, Green Park
+                                     New Delhi - 110016
+                                     India"
+                    />
+                    <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.INPUT}
+                        name="occupation"
+                        label="Occupation"
+                        placeholder="Software engineer"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-6 xl:flex-row">
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.INPUT}
+                        name="emergencyContactName"
+                        label="Emergency contact name"
+                        placeholder="Guardian's name"
+                    />
+
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.PHONE_INPUT}
+                        name="phone"
+                        label="Phone number"
+                        placeholder="+91 9325232542"
+                    />
+                </div>
+
                 <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
 
             </form>

@@ -17,6 +17,9 @@ import { Control } from "react-hook-form";
 import { FormFieldTypes } from "./forms/PatientForms";
 import Image from "next/image";
 import PhoneInput from "react-phone-number-input";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 interface CustomProps {
   control: Control<any>,
@@ -34,7 +37,7 @@ interface CustomProps {
 }
 
 const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
-  const { iconSrc, fieldType, iconAlt, placeholder } = props;
+  const { iconSrc, fieldType, iconAlt, placeholder, dateFormat, showTimeSelect, renderSkeleton } = props;
 
   switch (fieldType) {
     case FormFieldTypes.INPUT:
@@ -57,16 +60,36 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
     case FormFieldTypes.PHONE_INPUT:
       return (
         <FormControl>
-        <PhoneInput
-          defaultCountry="IN"
-          placeholder={props.placeholder}
-          international
-          withCountryCallingCode
-          value={field.value as E164Number | undefined}
-          onChange={field.onChange}
-          className="input-phone"
-        />
-      </FormControl>
+          <PhoneInput
+            defaultCountry="IN"
+            placeholder={props.placeholder}
+            international
+            withCountryCallingCode
+            value={field.value as E164Number | undefined}
+            onChange={field.onChange}
+            className="input-phone"
+          />
+        </FormControl>
+      )
+    case FormFieldTypes.DATE_PICKER:
+      return (
+        <div className="flex rounded-md bg-dark-400 border-dark-500">
+          <Image
+            src={'/assets/icons/calendar.svg'}
+            alt="calendar icon"
+            width={24}
+            height={24}
+            className="ml-2"
+          />
+          <FormControl>
+            <DatePicker selected={field.value} onChange={(date) => field.onChange(date)} showTimeSelect={showTimeSelect ?? false}
+              dateFormat={dateFormat ?? 'MM/dd/yyyy'} timeInputLabel="Time:" wrapperClassName="date-picker" />
+          </FormControl>
+        </div>
+      )
+    case FormFieldTypes.SKELETON:
+      return (
+        renderSkeleton ? renderSkeleton(field) : null
       )
   }
 }
