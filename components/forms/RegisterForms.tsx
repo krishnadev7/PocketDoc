@@ -12,8 +12,10 @@ import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { FormFieldTypes } from "./PatientForms"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
-import { GenderOptions } from "@/constants"
+import { Doctors, GenderOptions } from "@/constants"
 import { Label } from "../ui/label"
+import { SelectItem } from "../ui/select"
+import Image from "next/image"
 
 const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter();
@@ -167,6 +169,35 @@ const RegisterForm = ({ user }: { user: User }) => {
                         placeholder="+91 9325232542"
                     />
                 </div>
+
+                <section className="space-y-6">
+                    <div className="mb-9 space-y-1">
+                        <h2 className="sub-header">Medical Information</h2>
+                    </div>
+                </section>
+
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.SELECT}
+                        name="primaryPhysician"
+                        label="Primary Physician"
+                        placeholder="Select a Physician"
+                >
+                    {Doctors.map((doctor) => (
+                        <SelectItem key={doctor.name} value={doctor.name}>
+                                <div className="flex cursor-pointer items-center gap-2">
+                                    <Image
+                                        src={doctor.image}
+                                        alt="doctor image"
+                                        width={32}
+                                        height={32}
+                                        className="rounded-full border border-dark-500"
+                                    />
+                                    <p>{doctor.name}</p>
+                                </div>
+                        </SelectItem>
+                    ))}
+                </CustomFormField>
 
                 <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
 
