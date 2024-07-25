@@ -199,6 +199,60 @@ const RegisterForm = ({ user }: { user: User }) => {
                     ))}
                 </CustomFormField>
 
+                <div className="flex flex-col gap-6 xl:flex-row">
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.INPUT}
+                        name="insuranceProvider"
+                        label="Insurance Provider"
+                        placeholder="SureGuard Insurance"
+                    />
+
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.INPUT}
+                        name="insurancePolicyNumber"
+                        label="Insurance Policy Number"
+                        placeholder="PN-4782-9836-ABCD-2451"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-6 xl:flex-row">
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.TEXTAREA}
+                        name="allergies"
+                        label="Allergies (if any)"
+                        placeholder="Eggs, Cockroach droppings"
+                    />
+
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.TEXTAREA}
+                        name="currentMedication"
+                        label="Current Medication (if any)"
+                        placeholder="Ibuprofen, Amoxicillin"
+                    />
+                </div>
+
+                <div className="flex flex-col gap-6 xl:flex-row">
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.TEXTAREA}
+                        name="familyMedicalHistory"
+                        label="Family Medical History"
+                        placeholder="Maternal grandfather was diagnosed with type 2 diabetes at age 55, father had high blood pressure starting in his 60s"
+                    />
+
+                <CustomFormField
+                        control={form.control}
+                        fieldType={FormFieldTypes.TEXTAREA}
+                        name="pastMedicalHistory"
+                        label="Past Medical History"
+                        placeholder="Hypertension, Stroke"
+                    />
+                </div>
+
                 <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
 
             </form>
