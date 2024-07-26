@@ -22,6 +22,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "./ui/select";
 import { Textarea } from "./ui/textarea";
+import { Checkbox } from "./ui/checkbox";
 
 interface CustomProps {
   control: Control<any>,
@@ -44,7 +45,7 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
   switch (fieldType) {
     case FormFieldTypes.INPUT:
       return (
-        <div className="flex rounded-md border bg-dark-400 border-dark-500">
+        <div className="flex rounded-md border bg-white dark:bg-dark-400 text-black dark:text-white border-dark-500">
           {iconSrc && (
             <Image
               src={iconSrc}
@@ -75,7 +76,7 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
       )
     case FormFieldTypes.DATE_PICKER:
       return (
-        <div className="flex rounded-md bg-dark-400 border-dark-500">
+        <div className="flex rounded-md theme-background border-dark-500">
           <Image
             src={'/assets/icons/calendar.svg'}
             alt="calendar icon"
@@ -119,6 +120,21 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
           />
         </FormControl>
       )
+    case FormFieldTypes.CHECKBOX:
+      return(
+        <FormControl>
+          <div className="flex items-center gap-4">
+            <Checkbox
+              id={props.name}
+              checked={field.value}
+              onCheckedChange={field.onChange}
+            />
+            <label htmlFor={props.name} className="checkbox-label">
+              {props.label}
+            </label>
+          </div>
+        </FormControl>
+      )
   }
 }
 
@@ -129,7 +145,7 @@ const CustomFormField = (props: CustomProps) => {
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex-1">
+        <FormItem className="flex-1 ">
           {fieldType != FormFieldTypes.CHECKBOX && label && (
             <FormLabel>{label}</FormLabel>
           )}

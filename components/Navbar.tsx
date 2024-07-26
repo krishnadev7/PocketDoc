@@ -1,8 +1,29 @@
+"use client"
 import Image from "next/image"
+import { ModeToggle } from "./ModeToggle"
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
-    <nav className="border-b-2 border-transparent bg-dark-400 sticky top-0 z-50">
+    <nav className={`sticky top-0  z-50 transition-all duration-300 ${
+      isScrolled
+        ? 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-md shadow-md'
+        : 'bg-transparent dark:bg-transparent'
+    }`}>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
 
         <div className="flex items-center rtl:space-x-reverse">
@@ -14,6 +35,8 @@ export const Navbar = () => {
           />
           <span className="self-center text-3xl font-semibold whitespace-nowrap text-pocketDoc font-poppins">PocketDoc</span>
         </div>
+
+        <ModeToggle/>
 
         <button data-collapse-toggle="navbar-default" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
           <span className="sr-only">Open main menu</span>

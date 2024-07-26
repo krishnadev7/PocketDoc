@@ -6,12 +6,11 @@ const Register = async({params:{userId}}:SearchParamProps) => {
     const user = await getUser(userId);
   return (
     <div className="h-screen max-h-screen">
-        <section className="remove-scrollbar container my-auto">
-            <div className="sub-container max-w-[596px]">
+        <section className="remove-scrollbar container">
+            <div className="sub-container max-w-[860px] flex-1 flex-col py-10">
                 <RegisterForm user={user} />
               <div className="mt-20 text-14-regular flex justify-between">
                 <p className="justify-items-end text-dark-600 xl:text-left">© {(new Date()).getFullYear()} PocketDoc</p>
-                <Link href={"/?admin=true"} className="text-pocketDoc">Admin</Link>
               </div>
             </div>
         </section>

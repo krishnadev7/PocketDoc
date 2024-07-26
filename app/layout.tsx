@@ -41,15 +41,17 @@ export default function RootLayout({
           `}
         </style>
       </head>
-      <body className={cn('min-h-screen bg-dark-300 font-sans antialiased ', fontSans.variable, fontPoppins.variable)}>
+      <body className={cn('min-h-screen theme-background font-sans antialiased ', fontSans.variable, fontPoppins.variable)}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           <Navbar />
+          <main className="pt-16">
           {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
