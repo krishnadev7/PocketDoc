@@ -4,6 +4,23 @@
 
 /* ========================================== TAILWIND STYLES */
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: theme-background;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #08c0a9;
+  border-radius: 5px;
+}
+
+
 @layer base {
   /* Remove scrollbar */
   .remove-scrollbar::-webkit-scrollbar {

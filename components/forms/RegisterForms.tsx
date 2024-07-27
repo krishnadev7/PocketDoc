@@ -6,13 +6,13 @@ import { Form, FormControl } from "@/components/ui/form"
 import CustomFormField from "../customFormField"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
-import { UserFormValidation } from "@/lib/validation"
-import { createUser } from "@/lib/actions/patient.action"
+import { PatientFormValidation } from "@/lib/validation"
+import { registerPatient } from "@/lib/actions/patient.action"
 import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { FormFieldTypes } from "./PatientForms"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constants"
+import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues, } from "@/constants"
 import { Label } from "../ui/label"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
@@ -21,40 +21,49 @@ import FileUploader from "../FileUploader"
 const RegisterForm = ({ user }: { user: User }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const form = useForm<z.infer<typeof UserFormValidation>>({
-        resolver: zodResolver(UserFormValidation),
+    const form = useForm<z.infer<typeof PatientFormValidation>>({
+        resolver: zodResolver(PatientFormValidation),
         defaultValues: {
-            name: "",
-            email: "",
-            phone: ""
+            ...PatientFormDefaultValues,
+            name: user.name,
+            email: user.email,
+            phone: user.phone
         },
     })
 
-    async function onSubmit(values: z.infer<typeof UserFormValidation>) {
-        console.log("form submitted", values);
-
-
+    const onSubmit = async (values: z.infer<typeof PatientFormValidation>) => {
+        console.log("onSubmit function called", values);
+        
         setIsLoading(true);
 
+        let formData;
+
+        if (values.identificationDocument && values.identificationDocument?.length > 0) {
+            const blobFile = new Blob([values.identificationDocument[0]], {
+                type: values.identificationDocument[0].type
+            })
+            formData = new FormData();
+            formData.append('blobfile', blobFile)
+            formData.append('fileName', values.identificationDocument[0].name)
+        }
+
         try {
-            const user = {
-                name: values.name,
-                email: values.email,
-                phone: values.phone
+            const patient = {
+                ...values, 
+                userId: user.$id,
+                birthDate: new Date(values.birthDate),
+                identificationDocument: formData
             }
-
-
-            const newUser = await createUser(user);
-
-            if (newUser) {
-                router.push(`/patients/${newUser.$id}/register`);
+            //@ts-ignore
+            const newPatient = await registerPatient(patient);
+            if(newPatient){
+                router.push(`/patients/${user.$id}/new-appointment`)
             }
-
         } catch (error: any) {
             console.log(error);
-
+        }finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }
 
     return (
@@ -165,8 +174,8 @@ const RegisterForm = ({ user }: { user: User }) => {
                     <CustomFormField
                         control={form.control}
                         fieldType={FormFieldTypes.PHONE_INPUT}
-                        name="phone"
-                        label="Phone number"
+                        name="emergencyContactNumber"
+                        label="Emergency contact number"
                         placeholder="+91 9325232542"
                     />
                 </div>
@@ -314,7 +323,7 @@ const RegisterForm = ({ user }: { user: User }) => {
                     label="I acknowledge that i have recieved and agree to privacy policy."
                 />
 
-                <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
+                <SubmitButton isLoading={isLoading}>Submit and Continue</SubmitButton>
 
             </form>
         </Form>
