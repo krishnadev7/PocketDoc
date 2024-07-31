@@ -6,13 +6,13 @@ import { Form } from "@/components/ui/form"
 import CustomFormField from "../customFormField"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
-import { UserFormValidation } from "@/lib/validation"
-import { createUser } from "@/lib/actions/patient.action"
+import { getAppointmentSchema, UserFormValidation } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { Doctors } from "@/constants"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
+import { createAppointment } from "@/lib/actions/appointment.action"
 
 export enum FormFieldTypes {
     INPUT = 'input',
@@ -28,35 +28,53 @@ export enum FormFieldTypes {
 const AppointmentForms = ({ type, userId, patientId }: { type: "create" | "cancel" | "schedule", userId: string, patientId: string }) => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
-    const form = useForm<z.infer<typeof UserFormValidation>>({
-        resolver: zodResolver(UserFormValidation),
+    const AppointmentFormValidation = getAppointmentSchema(type);
+    const form = useForm<z.infer<typeof AppointmentFormValidation>>({
+        resolver: zodResolver(AppointmentFormValidation),
         defaultValues: {
-            name: "",
-            email: "",
-            phone: ""
+            primaryPhysician: "",
+            schedule: new Date(),
+            reason: "",
+            note: "",
+            cancellationReason: ""
         },
     })
 
-    async function onSubmit(values: z.infer<typeof UserFormValidation>) {
-        console.log("form submitted", values);
-
+    async function onSubmit(values: z.infer<typeof AppointmentFormValidation>) {
 
         setIsLoading(true);
 
+        let status;
+        switch (type) {
+            case "schedule":
+                status = "scheduled";
+                break;
+            case "cancel":
+                status = "cancelled";
+                break;
+            default:
+                status = "pending";
+                break;
+        }
+
         try {
-            const user = {
-                name: values.name,
-                email: values.email,
-                phone: values.phone
+            if (type == "create" && patientId) {
+                const appointmentData = {
+                    userId,
+                    patient: patientId,
+                    primaryPhysician: values.primaryPhysician,
+                    schedule: new Date(values.schedule),
+                    reason: values.reason!,
+                    note: values.note,
+                    status: status as Status
+                }
+                const appointment = await createAppointment(appointmentData)
+                if(appointment){
+                    form.reset();
+                    router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
+                }
+
             }
-
-
-            const newUser = await createUser(user);
-
-            if (newUser) {
-                router.push(`/patients/${newUser.$id}/register`);
-            }
-
         } catch (error: any) {
             console.log(error);
 
@@ -64,19 +82,19 @@ const AppointmentForms = ({ type, userId, patientId }: { type: "create" | "cance
         setIsLoading(false);
 
     }
-    
+
     let buttonlabel;
 
-    switch(type){
+    switch (type) {
         case 'cancel':
             buttonlabel = "Cancel Appointment"
-        break;
+            break;
         case 'create':
             buttonlabel = "Create Appointment"
-        break;
+            break;
         case 'schedule':
             buttonlabel = "Schedule Appointment"
-        break;
+            break;
         default:
             break;
     }
@@ -135,7 +153,7 @@ const AppointmentForms = ({ type, userId, patientId }: { type: "create" | "cance
                             <CustomFormField
                                 fieldType={FormFieldTypes.TEXTAREA}
                                 control={form.control}
-                                name="notes"
+                                name="note"
                                 label="Notes"
                                 placeholder="Enter notes"
                             />
