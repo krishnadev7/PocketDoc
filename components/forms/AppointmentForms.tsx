@@ -6,7 +6,7 @@ import { Form } from "@/components/ui/form"
 import CustomFormField from "../customFormField"
 import SubmitButton from "../SubmitButton"
 import { useState } from "react"
-import { getAppointmentSchema, UserFormValidation } from "@/lib/validation"
+import { getAppointmentSchema,  } from "@/lib/validation"
 import { useRouter } from "next/navigation"
 import { z } from "zod"
 import { Doctors } from "@/constants"
@@ -26,9 +26,11 @@ export enum FormFieldTypes {
 
 
 const AppointmentForms = ({ type, userId, patientId }: { type: "create" | "cancel" | "schedule", userId: string, patientId: string }) => {
+    
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const AppointmentFormValidation = getAppointmentSchema(type);
+    
     const form = useForm<z.infer<typeof AppointmentFormValidation>>({
         resolver: zodResolver(AppointmentFormValidation),
         defaultValues: {
