@@ -29,19 +29,19 @@ const PasskeyModal = () => {
   const [error, setError] = useState('');
 
   const encryptedKey = typeof window !== 'undefined' ? window.localStorage.getItem('accesskey') : null;
-
-  console.log(path);
+ 
   
-
+  
+  
   useEffect(() => {
     if (path) {
       const accessKey = encryptedKey && decryptKey(encryptedKey);
       console.log('inside useEffect');
       console.log('accesskeh:', accessKey);
-      console.log('Expected Passkey:', process.env.NEXT_PUBLIC_ADMIN_PASS_KEY);
+      console.log('Expected Passkey:', process.env.NEXT_PUBLIC_ADMIN_PASSKEY);
   
       
-      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASS_KEY) {
+      if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
         console.log('Redirecting to /admin');
         setOpen(false);
         router.push('/admin');
@@ -49,7 +49,7 @@ const PasskeyModal = () => {
         setOpen(true)
       }
     }
-  }, [encryptedKey,path])
+  }, [encryptedKey])
 
   const closeModal = () => {
     setOpen(false);
@@ -58,9 +58,9 @@ const PasskeyModal = () => {
 
   const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASS_KEY) {
+    if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
       const encryptedKey = encryptKey(passkey);
-      localStorage.setItem('acessKey', encryptedKey);
+      localStorage.setItem('accesskey', encryptedKey);
       setOpen(false)
     } else {
       setError("Invalid passkey. Please try again.")
@@ -90,7 +90,7 @@ const PasskeyModal = () => {
               <InputOTPSlot className="shad-otp-slot" index={5} />
             </InputOTPGroup>
           </InputOTP>
-          {error && <p className="flex justify-center shad-error text-14-regular mt-4 flex justify-center">
+          {error && <p className="flex justify-center shad-error text-14-regular mt-4">
             {error}
           </p>}
         </div>
