@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/Navbar";
+import { usePathname } from "next/navigation";
 
 
 // Font settings
@@ -24,11 +25,13 @@ export const metadata: Metadata = {
   description: "A Healthcare Management System",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>
+) {
   return (
     <html lang="en">
       <head>
@@ -48,7 +51,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
+          {/* Conditionally render Navbar */}
+           <Navbar />
           <main>
           {children}
           </main>
