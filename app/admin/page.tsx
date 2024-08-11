@@ -1,9 +1,26 @@
 import StatCard from "@/components/StatCard"
+import {columns, Payment} from "@/components/table/Columns";
+import {DataTable} from "@/components/table/DataTable";
 import { getRecentAppointmentList } from "@/lib/actions/appointment.action"
+
+
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+      patient: "krish"
+    },
+    // ...
+  ]
+}
 
 const Admin = async() => {
   const appointments = await getRecentAppointmentList();
-  
+  const data = await getData()
   return (
     <div className="admin-page">
     <main className="admin-main">
@@ -32,6 +49,8 @@ const Admin = async() => {
             icon={"/assets/icons/cancelled.svg"}
           />
         </section>
+        {/* <DataTable columns={columns} data={appointments.documents}/> */}
+        <DataTable columns={columns} data={data}/>
     </main>
     </div>
   )
