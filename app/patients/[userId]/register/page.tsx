@@ -1,6 +1,5 @@
 import RegisterForm from "@/components/forms/RegisterForms";
 import { getUser } from "@/lib/actions/patient.action";
-import Link from "next/link";
 
 const Register = async({params:{userId}}:SearchParamProps) => {
     const user = await getUser(userId);
