@@ -76,7 +76,7 @@ const RenderField = ({ field, props }: { field: any, props: CustomProps }) => {
       )
     case FormFieldTypes.DATE_PICKER:
       return (
-        <div className="flex rounded-md theme-background border-dark-500">
+        <div className="flex rounded-md  border-dark-500">
           <Image
             src={'/assets/icons/calendar.svg'}
             alt="calendar icon"
