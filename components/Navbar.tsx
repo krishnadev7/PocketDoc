@@ -52,6 +52,7 @@ export const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
 
         <div className="flex items-center rtl:space-x-reverse">
+          <Link href={'/'}>
           <Image
             src={"/assets/images/pocketdoc-logo.png"}
             height={55}
@@ -59,6 +60,7 @@ export const Navbar = () => {
             alt="logo"
           />
           <span className="self-center text-3xl font-semibold whitespace-nowrap text-pocketDoc font-poppins">PocketDoc</span>
+          </Link>
         </div>
 
         <ModeToggle />
