@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# PocketDoc
 
-First, run the development server:
+file:///home/krish/Pictures/Screenshots/Screenshot%20from%202024-08-18%2015-40-45.png
 
+
+PocketDoc is a healthcare management system designed to streamline the process of scheduling appointments with doctors. Built using Next.js, Tailwind CSS for styling, and ShadCN for UI components, it offers a seamless user experience. The system includes an admin dashboard for managing appointments, allowing admins to cancel or schedule appointments as needed. Twilio integration enables SMS notifications to keep users informed, while Appwrite serves as the database backend to store and manage data securely
+
+
+## Tech Stack
+
+**Client:** Next.js
+Typescript
+TailwindCSS
+ShadCN
+
+
+**Server:** Appwrite, Express, Twilio
+
+
+## Features
+
+▶️ Register as a Patient: Users can sign up and create a     personal profile as a patient.
+
+▶️ Book a New Appointment with a Doctor: Patients can conveniently schedule appointments with doctors and book multiple appointments.
+
+▶️ Manage Appointments on the Admin Side: Administrators can efficiently view and manage all scheduled appointments.
+
+▶️ Confirm/Schedule Appointments from the Admin Side: Admins can confirm and set appointment times to ensure they are properly scheduled.
+
+▶️ Cancel Appointments from the Admin Side: Administrators have the ability to cancel appointments as needed.
+
+▶️ Send SMS on Appointment Confirmation: Patients receive SMS notifications to confirm their appointment details.
+
+▶️ Complete Responsiveness: The application works seamlessly on all devices and screen sizes.
+
+▶️ File Upload Using Appwrite Storage: Users can securely upload and store files within the app using Appwrite storage services.
+
+
+
+## Installation
+
+Follow these steps to set up the project locally on your machine.
+
+Prerequisites
+
+Make sure you have the following installed on your machine:
+
+Git, 
+Node.js,
+npm (Node Package Manager)
+
+### Cloning the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  git clone https://github.com/krishnadev7/PocketDoc.git
+  cd PocketDoc
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
+Install the project dependencies using npm:
+```bash
+  npm install
+```
+### Running the Project
+```bash
+  npm run dev
+```
+    
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a new file named .env.local in the root of your project and add the following content:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#APPWRITE
+`NEXT_PUBLIC_ENDPOINT=https://cloud.appwrite.io/v1`
 
-## Learn More
+`PROJECT_ID=`
 
-To learn more about Next.js, take a look at the following resources:
+`API_KEY=`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`DATABASE_ID=`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+`PATIENT_COLLECTION_ID=`
 
-## Deploy on Vercel
+`APPOINTMENT_COLLECTION_ID=`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`NEXT_PUBLIC_BUCKET_ID=`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`NEXT_PUBLIC_ADMIN_PASSKEY=111111`
+
+Replace the placeholder values with your actual Appwrite credentials. You can obtain these credentials by signing up on the [Appwrite website](https://appwrite.io/).
+
